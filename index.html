@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name = "viewport" content = "width = device-width, initial-scale = 1,
+         maximum-scale = 1, minimum-scale = 1, user-scalable = no, minimal-ui" />
+    <meta name = "apple-mobile-web-app-capable" content = "yes" />
+    <meta name = "apple-mobile-web-app-status-bar-style" content = "black" />
+    <title>Through Layout</title>
+    <link rel = "stylesheet"
+          href = "css/framework7.material.min.css" />
+    <link rel = "stylesheet"
+          href = "css/framework7.material.colors.min.css" />
+</head>
+<style>
+#content{
+   background-image: url('img/bg.jpg');
+   background-size: cover;
+}
+#img{
+
+   background-size: 200px 200px;
+   width: 70%;
+   margin-top:30px;
+}
+#title{
+   font-size: 60px;
+   color: white;
+   margin-top:10px;
+   font-family: nasalization;
+}
+input
+{
+   width: 65%;
+   border: none;
+   border-bottom:1px solid white;
+   background-color: transparent;
+   color: white;
+   font-size: 20px;
+   text-indent: 40px;
+   font-family: oswald regular;
+   font-stretch: ultra-expanded;
+   letter-spacing: 1px;
+   margin-top: 40px;
+}
+input::placeholder{
+   color: #b2b2b2;
+}
+#userName{
+   background: url('img/username.png') no-repeat left center;
+   background-size: 23px 23px;
+   max-height: 50px;
+}
+#userPw{
+   background: url('img/password.png') no-repeat left center;
+   background-size: 23px 23px;
+   max-height: 50px;
+}
+#login_btn
+{
+   margin-top: 40px;
+   background-color: yellow;
+   font-size: 14px;
+   border-radius: 5px;
+   padding: 10px 35px;
+
+}
+#rgstr_btn
+{
+   margin-top: 40px;
+   background-color: blue;
+   font-size: 14px;
+   border-radius: 5px;
+   padding: 10px 35px;
+   color:white;
+}
+#uname, #pw
+{
+    color: black;
+}
+#sign_up{
+    color: white;
+}
+
+</style>
+<body>
+<div class = "views">
+    <div class = "view view-main">
+        <div data-page = "home" class = "page" id = "content">
+            <div class = "page-content">
+                <center><img src = "img/pixelfie.png" id = "img">
+                    <div id = "title">Pixelfie</div>
+                    <div id = "input_login">
+
+                        <input id="userName" type="text" placeholder="Username" value="" />
+                        <input id="userPw" type="password" placeholder="Password" value=""/><br>
+                        <button id="login_btn" type="submit" onClick="check()"/>LOGIN</button>
+                        <a href="#" data-popup=".popover-rgstr" class="open-popover" id = "sign_up">SIGN UP </a>
+                    </div>
+
+                </center>
+            </div>
+            <center>
+                <div class="popover popover-rgstr">
+                    <div class="content-block">
+                        <form id="register-form">
+                            <input id="uname" type="text" placeholder="Name" value=""/><br>
+                            <input id="pw" type="password" placeholder="Password" value=""/><br>
+                            <input id="rgstr_btn" type="submit" value="get Account" onClick="store()"/>
+                            <a href="#" class="close-popover">Close popup</a>
+                        </form>
+                    </div>
+                </div>
+            </center>
+        </div>
+    </div>
+</div>
+</div>
+
+<script type = "text/javascript" src = "js/framework7.min.js"></script>
+<script type = "text/javascript" src = "cordova.js"></script>
+
+<script>
+         var myApp = new Framework7();
+         var mainView = myApp.addView('.view');
+
+          var uname = document.getElementById('uname');
+          var pw = document.getElementById('pw');
+          // storing input from register-form
+          function store() {
+              myApp.alert('Account created');
+              localStorage.setItem('uname', uname.value);
+              localStorage.setItem('pw', pw.value);
+
+          }
+
+          // check if stored data from register-form is equal to entered data in the   login-form
+          function check()
+          {
+              // stored data from the register-form
+              var storedName = localStorage.getItem('uname');
+              var storedPw = localStorage.getItem('pw');
+
+              // entered data from the login-form
+              var userName = document.getElementById('userName');
+              var userPw = document.getElementById('userPw');
+
+
+                  // check if stored data from register-form is equal to data from login form
+                  if(userName.value == storedName && userPw.value == storedPw) {
+                      myApp.alert('You are loged in.');
+                  }else {
+                      myApp.alert('error');
+            }
+         }
+      </script>
+</body>
+
+</html>
